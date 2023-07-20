@@ -534,7 +534,10 @@ pub fn cosmic_edit_bevy_events(
                 }
 
                 // redo
+                #[cfg(not(target_os = "windows"))]
                 let requested_redo = command && shift && keys.just_pressed(KeyCode::Z);
+                #[cfg(target_os = "windows")]
+                let requested_redo = command && keys.just_pressed(KeyCode::Y);
 
                 if !cosmic_edit.readonly && requested_redo {
                     let edits = &edit_history.edits;
